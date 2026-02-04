@@ -65,8 +65,8 @@ We also have [a teams page](https://teams.microsoft.com/l/team/19%3A477ed7103376
 
 If a user should be an admin, run the following
 
-```sh
-sudo usermod -aG sudo <username>
+```bash
+sudo adm user sudo add <username>
 ```
 
 Also:
@@ -75,9 +75,8 @@ Also:
 
 If you want to remove a sudoer, run 
 
-```sh
-# (this is untested, please check that it works)
-sudo deluser <username> sudo
+```bash
+sudo adm user sudo remove <username>
 ```
 
 Also:
@@ -88,14 +87,14 @@ Also:
 Deleting a user account happens in two steps. First, we may (optionally) back up the user's home directory
 
 ```bash
-sudo backupuser <username>
+sudo adm user backup <username>
 ```
 then you can use `scp` to download the compressed archive `username.tar.gz` in the working directory. Then, delete the file because it is probably huge.
 
 Then, we will properly remove the user
 
 ```bash
-sudo removeuser <username>
+sudo adm user remove <username>
 ```
 
 This asks for confirmation before doing anything, so don't worry too much :)
@@ -112,12 +111,30 @@ Generally, the command `htop` is used to check for server usage, processes open 
 sudo htop
 ```
 
+(there are also alternatives like `btop` which will display all threads in a big enough terminal window)
+
 ## 3.2. Main storage monitoring
 To ensure the `/data` disk is not filled up, you can check the overall usage and per-user usage using the following commands:
 
 ```bash
+# human-readable free space on the disk
 df -h /data
-sudo du -hs /data/*
+```
+
+If the disk is full (which happens), you will get errors like
+
+> write error: no space left on device
+
+and for the RStudio server, maybe even
+
+> Could not connect to the R session on Rstudio server. Error occurred during transmission (6)
+
+
+You can check per-user disk usage with
+
+```bash
+# this may take some time
+sudo adm disk usage
 ```
 
 If any user is using outrageous amounts of data, tell them to download it via the "Backing up your data" section in the [user docs](./userdocs) and then delete it.
@@ -159,6 +176,18 @@ The commandline application `rstudio-server` is used to manage sessions on the R
 
 # 5. Fixing R package installation errors
 
+R packages are built on the machine. This sometimes needs additional system dependencies or libraries. Most of the commonly required ones have been installed already as part of the [server setup](./serversetup). However, it might be that a user needs to install a new package which is not yet supported.
+
+If users install packages via `pak::pak()` as suggested in the user documentation and by each R terminal session (via the `/opt/R/4.4.2/lib/R/etc/Rprofile.site` file), then they will get nice warnings about which dependencies may need to be installed. The admin can then install things like so:
+
+```bash
+sudo apt install libharfbuzz-dev
+```
+
+When you do, please update the relevant software installation section in the [server setup](./serversetup) documentation as well, so if the machine needs to be set up again this error is avoided.
 
 # 6. Updating R
-Update the R version in the [userdocs](./userdocs).
+
+(docs incomplete)
+
+Don't forget to update the R version in the [userdocs](./userdocs).

@@ -54,6 +54,8 @@ Then, to mount the new `/dev/sdb1` partition, you have to edit `/etc/fstab` (CAR
 /dev/sdb1 /data ext4 defaults 0 1
 ```
 
+> Note that the current implementation of the server also has an additional 1TB disk on `/etc/sdc1` mounted to `/backup` in the same way.
+
 ## 1.3. Create admin account
 Now, create your own admin account (we'll use `erikjan`):
 
