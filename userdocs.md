@@ -25,8 +25,8 @@ The administrators for the server are:
 
 | name | login | email |
 | :--- | :---- | :---- |
-| Erik-Jan | erikjan | e.vankesteren1@uu.nl |
 | Javier   | javier  | j.garciabernardo@uu.nl |
+| Niek     | niek    | n.c.deschipper@uu.nl   |
 
 # 2. Connecting to the server
 Connecting to the server is only available in two ways:
