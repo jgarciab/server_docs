@@ -25,7 +25,7 @@
 > In the URL below is the documentation, please read it carefully and then send me 
 > an email to request an account (optionally with your desired username).
 >
-> https://vankesteren.github.io/server_docs/userdocs
+> https://javier.science/server_docs/userdocs
 >
 > Kind regards,
 >
